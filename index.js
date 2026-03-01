@@ -273,39 +273,4 @@ client.on(Events.MessageCreate, async (message) => {
   }
 });
 
-client.login(DISCORD_TOKEN);n;
-  if (!message.mentions.has(client.user)) return;
-
-  // Remove a menção do texto
-  const userText = message.content
-    .replace(/<@!?[0-9]+>/g, "")
-    .trim();
-
-  if (!userText) {
-    await message.reply("Oi! Manda sua pergunta aí 🤙");
-    return;
-  }
-
-  // Mostra que tá digitando
-  await message.channel.sendTyping();
-
-  try {
-    const reply = await askZezin(
-      message.channel.id,
-      userText,
-      message.author.username
-    );
-
-    const parts = splitMessage(reply);
-    // Primeira parte como reply, resto como mensagem normal
-    await message.reply(parts[0]);
-    for (let i = 1; i < parts.length; i++) {
-      await message.channel.send(parts[i]);
-    }
-  } catch (err) {
-    console.error("Erro na API:", err.message);
-    await message.reply("Deu ruim aqui, parceiro. Tenta de novo 😅");
-  }
-});
-
 client.login(DISCORD_TOKEN);
