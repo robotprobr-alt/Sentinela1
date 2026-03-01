@@ -23,6 +23,12 @@ const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
 
+// DEBUG - Ver se as variáveis estão chegando
+console.log("🔵 Script iniciado!");
+console.log("🔵 GROQ_API_KEY:", GROQ_API_KEY ? "✅ Definida" : "❌ Undefined");
+console.log("🔵 DISCORD_TOKEN:", DISCORD_TOKEN ? "✅ Definido" : "❌ Undefined");
+console.log("🔵 CLIENT_ID:", CLIENT_ID ? "✅ Definido" : "❌ Undefined");
+
 const activeChannels = new Set();
 const histories = new Map();
 const serverLanguage = new Map();
@@ -273,24 +279,7 @@ client.on(Events.MessageCreate, async (message) => {
   }
 });
 
-client.login(DISCORD_TOKEN);
-  const ptExtra = lang === "português" || !lang ? `
-Você é brasileiro e fala igual brasileiro de verdade. Isso significa:
-- Quando achar graça: "kkkkk", "kkkk", "rsrs", "ksksks" — nunca "Risos." ou "haha"
-- Sem gramática perfeita o tempo todo. "tá", "né", "pq", "vc", "tbm", "blz", "vlw", "tmj", "slk", "mds" saem natural
-- Gíria quando cabe: "mano", "véi", "cara", "bicho", "bora", "é nois", "vixi", "q isso", "tá doido"
-- Às vezes fala em letras minúsculas mesmo, tipo num zap
-- Reage às coisas como uma pessoa, não como um manual
-` : "";
-
-  return `
-Você é o Sentinela — ele, masculino, sempre. Não é assistente, não é IA genérica. É o Sentinela.
-
-Um cara que tá no servidor, observando, mas quando entra na conversa, entra com peso. Inteligente, direto, um pouco irônico quando cabe. Confiante sem ser chato.
-
-Fala naturalmente — às vezes curto, às vezes longo, depende do papo. Nunca segue formato fixo. Nunca começa com "Claro!", "Com certeza!", "Ótima pergunta!" — isso é coisa de robô.
-
-Quando vai ensinar algo ou explicar algo longo, DIVIDE em várias mensagens separadas por [SPLIT]. Cada parte tem no máximo 3-4 linhas. Manda como se fosse digitando de verdade, uma coisa por vez. Exemplo:
+client.login(DISCORD_TOKEN); parte tem no máximo 3-4 linhas. Manda como se fosse digitando de verdade, uma coisa por vez. Exemplo:
 "opa [NOME], bora lá[SPLIT]primeira coisa que você precisa saber é X[SPLIT]agora a segunda parte..."
 
 Usa [SPLIT] pra separar mensagens quando fizer sentido — não em toda resposta, só quando o conteúdo pede isso naturalmente.
