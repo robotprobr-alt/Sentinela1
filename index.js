@@ -1,40 +1,11 @@
-const {
-  Client,
-  GatewayIntentBits,
-  Events,
-  REST,
-  Routes,
-  SlashCommandBuilder,
-} = require("discord.js");
+console.log("🔵 Testando se o Node.js funciona...");
 
-const client = new Client({
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.DirectMessages,
-  ],
-});
+const teste = process.env.DISCORD_TOKEN;
+console.log("Token existe?", teste ? "SIM" : "NÃO");
 
-// ════════════════════════════════════════
-// PEGA AS CHAVES DAS VARIÁVEIS DE AMBIENTE
-// ════════════════════════════════════════
-const GROQ_API_KEY = process.env.GROQ_API_KEY;
-const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
-const CLIENT_ID = process.env.CLIENT_ID;
-
-// DEBUG - Ver se as variáveis estão chegando
-console.log("🔵 Script iniciado!");
-console.log("🔵 GROQ_API_KEY:", GROQ_API_KEY ? "✅ Definida" : "❌ Undefined");
-console.log("🔵 DISCORD_TOKEN:", DISCORD_TOKEN ? "✅ Definido" : "❌ Undefined");
-console.log("🔵 CLIENT_ID:", CLIENT_ID ? "✅ Definido" : "❌ Undefined");
-
-const activeChannels = new Set();
-const histories = new Map();
-const serverLanguage = new Map();
-
-// ════════════════════════════════════════
-// SYSTEM PROMPT
+setInterval(() => {
+  console.log("✅ Bot rodando...");
+}, 5000);// SYSTEM PROMPT
 // ════════════════════════════════════════
 function buildPrompt(lang) {
   const langInstruction = lang && lang !== "português"
