@@ -3,15 +3,17 @@ const express = require("express");
 
 console.log("Iniciando aplicação...");
 
-// ===== WEB SERVER =====
+// ===== WEB SERVER (Render exige porta dinâmica) =====
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send("Bot online 🤠");
+  res.send("Vaqueiro Bot online 🤠");
 });
 
-app.listen(3000, () => {
-  console.log("Web service rodando na porta 3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Web service rodando na porta ${PORT}`);
 });
 
 // ===== DEBUG TOKEN =====
@@ -35,6 +37,18 @@ client.on("debug", (info) => {
 });
 
 client.on("error", (err) => {
+  console.error("ERRO NO CLIENT:", err);
+});
+
+client.once("ready", () => {
+  console.log("✅ Logado como:", client.user.tag);
+});
+
+console.log("Tentando login...");
+
+client.login(process.env.TOKEN)
+  .then(() => console.log("Login enviado para Discord..."))
+  .catch((err) => console.error("Falha no login:", err));client.on("error", (err) => {
   console.error("ERRO NO CLIENT:", err);
 });
 
