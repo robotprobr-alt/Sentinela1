@@ -1,18 +1,27 @@
 const { Client, GatewayIntentBits } = require("discord.js");
 const express = require("express");
 
-// ===== WEB SERVER (necessário pro Render não desligar) =====
+console.log("Iniciando aplicação...");
+
+// ===== WEB SERVER =====
 const app = express();
 
 app.get("/", (req, res) => {
-  res.send("Vaqueiro Bot está online 🤠");
+  res.send("Bot online 🤠");
 });
 
 app.listen(3000, () => {
-  console.log("Web server rodando na porta 3000");
+  console.log("Web service rodando na porta 3000");
 });
 
-// ===== DISCORD BOT =====
+// ===== DEBUG TOKEN =====
+console.log("TOKEN existe?", !!process.env.TOKEN);
+
+if (!process.env.TOKEN) {
+  console.log("ERRO: TOKEN não encontrado nas variáveis de ambiente.");
+}
+
+// ===== DISCORD CLIENT =====
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -21,16 +30,19 @@ const client = new Client({
   ]
 });
 
+client.on("debug", (info) => {
+  console.log("DEBUG:", info);
+});
+
+client.on("error", (err) => {
+  console.error("ERRO NO CLIENT:", err);
+});
+
 client.once("ready", () => {
-  console.log(`Logado como ${client.user.tag}`);
+  console.log("Logado como:", client.user.tag);
 });
 
-client.on("messageCreate", (message) => {
-  if (message.author.bot) return;
-
-  if (message.content === "!ping") {
-    message.reply("Pong 🤠");
-  }
-});
-
-client.login(process.env.TOKEN);
+console.log("Tentando login...");
+client.login(process.env.TOKEN)
+  .then(() => console.log("Login enviado para Discord..."))
+  .catch((err) => console.error("Falha no login:", err));
